@@ -3,15 +3,12 @@ package com.jordigarcia.mensajeria.persistence.entities;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +26,11 @@ public class User implements UserDetails {
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
     private boolean enabled;
+    @OneToMany(mappedBy = "sender")
+    private List<Message> sentMessages;
+    @OneToMany(mappedBy = "receiver")
+    private List<Message> receivedMessages;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
